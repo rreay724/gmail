@@ -51,6 +51,7 @@ export default function Home() {
         >
           Log out
         </button>
+        <h1>This is the main page</h1>
       </main>
     </div>
   );
