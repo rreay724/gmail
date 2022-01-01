@@ -1,11 +1,4 @@
 import { createContext, useState, useEffect, useContext } from "react";
-// // import {
-// //   GoogleAuthProvider,
-// //   getAuth,
-// //   signOut,
-// //   onAuthStateChanged,
-// // } from "firebase/auth";
-// import { refreshTokenSetup } from "../utils/refreshToken";
 import { useGoogleLogin, useGoogleLogout } from "react-google-login";
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 import { refreshTokenSetup } from "../utils/refreshToken";
