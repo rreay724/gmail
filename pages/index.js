@@ -1,42 +1,25 @@
 import Head from "next/head";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState, useContext } from "react";
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { app, login } from "../services/firebase";
-import { UserContext } from "../context/userContext";
+
+import { UserContext, useUser } from "../context/userContext";
 
 export default function Home() {
-  const currentUser = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const router = useRouter();
+  const { signOut } = useUser();
 
-  console.log(currentUser);
-  const auth = getAuth();
+  console.log("FROM HOME:", user);
 
-  const logout = () => {
-    signOut(auth)
-      .then(() => {
-        router.push({
-          pathname: "/login",
-        });
-        // router.reload(window.location.pathname);
-      })
-      .catch((error) => {
-        console.log("Error logging out: ", error);
-      });
-  };
-
+  // if (!user) {
+  //   router.push({ pathname: "/login" });
+  // }
   useEffect(() => {
-    if (!currentUser) {
-      router.push({ pathname: "/login" });
+    {
+      !user && router.push({ pathname: "/login" });
     }
-  });
+  }, [user]);
 
-  console.log("USER", currentUser);
   return (
     <div className="">
       <Head>
@@ -47,7 +30,7 @@ export default function Home() {
       <main className="">
         <button
           className="w-24 bg-blue-600 text-white rounded-full p-2"
-          onClick={logout}
+          onClick={signOut}
         >
           Log out
         </button>
