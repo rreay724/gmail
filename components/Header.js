@@ -12,7 +12,7 @@ function Header() {
   const { user } = useContext(UserContext);
   const { signOut } = useUser();
   return (
-    <div className="h-16 bg-black-default items-center grid grid-cols-2 border-b border-gray-700">
+    <div className="h-16 bg-black-default items-center grid grid-cols-2 border-b border-gray-700 sticky">
       <div className="flex ml-5 items-center justify-start">
         <div className="flex mr-10 space-x-2 ">
           <MenuIcon className="w-6 text-white" />

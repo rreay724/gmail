@@ -1,51 +1,22 @@
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import { app, login } from "../services/firebase";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/dist/client/router";
+import { useUser } from "../context/userContext";
 
 function Login() {
-  const router = useRouter();
-  const auth = getAuth();
-  const provider = new GoogleAuthProvider();
-
-  const login = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        router.push({ pathname: "/", user: user });
-
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
+  const { signIn } = useUser();
 
   return (
-    <div>
-      <button
-        className="w-24 bg-blue-600 text-white rounded-full p-2"
-        onClick={login}
-      >
-        Login
-      </button>
+    <div className="h-screen flex">
+      <div className="border border-gray-300 h-[30rem] w-[26rem] m-auto rounded-md">
+        <div className="text-center mt-40">
+          <img src="logo.png" alt="googleLogo" className="h-7 mx-auto my-5" />
+          <h1 className="text-2xl my-5">Sign In</h1>
+          <button
+            className="w-64 bg-[#4285F4] text-white rounded-md shadow-lg p-2 my-5"
+            onClick={signIn}
+          >
+            Login
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
