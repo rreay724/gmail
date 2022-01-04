@@ -24,13 +24,17 @@ export default function Home() {
       </Head>
 
       <main className="">
-        <div className=" ">
+        <div className=" sticky top-0 z-50">
           <Header />
         </div>
 
-        <div className="flex ">
-          <Sidebar />
-          <Emails />
+        <div className="flex relative">
+          <div className="">
+            <Sidebar className="" />
+          </div>
+          <div className="w-full">
+            <Emails className="overflow-y-scroll" />
+          </div>
         </div>
       </main>
     </div>

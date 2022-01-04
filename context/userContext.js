@@ -60,7 +60,7 @@ const UserProvider = (props) => {
     const fetchEmails = async () => {
       //   console.log("TOKEN", token);
       const emails = await fetch(
-        `https://gmail.googleapis.com/gmail/v1/users/${user?.googleId}/messages?key=${process.env.NEXT_PUBLIC_API_KEY}
+        `https://gmail.googleapis.com/gmail/v1/users/${user?.googleId}/messages?q=labelId%3APRIMARY&key=${process.env.NEXT_PUBLIC_API_KEY}
         `,
         {
           headers: {

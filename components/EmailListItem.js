@@ -10,6 +10,8 @@ import {
 function EmailListItem({ id }) {
   const { token, user } = useContext(UserContext);
   const [email, setEmail] = useState();
+  const [from, setFrom] = useState();
+  const [subject, setSubject] = useState();
   useEffect(() => {
     const fetchEmails = async () => {
       //   console.log("TOKEN", token);
@@ -24,24 +26,40 @@ function EmailListItem({ id }) {
         }
       ).then((res) => res.json());
       setEmail(emailItem);
-      console.log("EMAIL", email);
     };
 
     if (token) {
       fetchEmails();
     }
+
+    email?.payload.headers.forEach((header) => {
+      {
+        header.name === "From" && setFrom(header.value);
+      }
+      if (header.name === "From") {
+        setFrom(header.value);
+      }
+      if (header.name === "Subject") {
+        setSubject(header.value);
+      }
+    });
   }, []);
+
+  console.log("EMAIL", email);
+
   return (
-    <div className="flex w-full h-10 pl-4 items-center border-b border-gray-700 text-gray-400">
+    <div className="flex flex-cols-2 w-full h-10 pl-4 items-center border-b border-gray-700 text-gray-400 text-sm">
       <div className="flex items-center space-x-4">
         <p>▢</p>
         <StarIcon className="h-5" />
         <BookmarkIcon className="h-5" />
+        <p className="text-white font-semibold truncate w-44">{from}</p>
       </div>
       <div className="ml-24 flex w-[60rem]">
+        <p className="text-white font-semibold truncate">{subject}</p>
         <p className="truncate">{email?.snippet}</p>
-        <p className="">7/11/21</p>
       </div>
+      <p className="ml-10 ">7/11/21</p>
     </div>
   );
 }
