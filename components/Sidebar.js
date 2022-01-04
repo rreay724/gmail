@@ -14,19 +14,19 @@ function Sidebar() {
         <p className="text-sm">Compose</p>
       </div>
       <div className=" text-gray-300 space-y-3">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 cursor-pointer">
           <InboxIcon className="w-6" />
           <p className="text-sm">Inbox</p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 cursor-pointer">
           <StarIcon className="w-6" />
           <p className="text-sm">Starred</p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 cursor-pointer">
           <ClockIcon className="w-6" />
           <p className="text-sm">Snoozed</p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 cursor-pointer">
           <PaperAirplaneIcon className="w-6 rotate-90" />
           <p className="text-sm">Sent</p>
         </div>

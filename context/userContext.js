@@ -7,8 +7,11 @@ import { useRouter } from "next/dist/client/router";
 export const UserContext = createContext(null);
 
 const UserProvider = (props) => {
+  const scope = "https://www.googleapis.com/auth/gmail.readonly";
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const [emailList, setEmailList] = useState();
+  const [token, setToken] = useState();
   const onSuccess = (res) => {
     console.log("Login Success: currentUser:", res.profileObj);
     setUser(res.profileObj);
@@ -17,6 +20,8 @@ const UserProvider = (props) => {
     router.push({
       pathname: "/",
     });
+    setToken(res.accessToken);
+    console.log("RES TOKEN", res);
   };
 
   const onFailure = (res) => {
@@ -28,9 +33,10 @@ const UserProvider = (props) => {
     onFailure,
     clientId,
     isSignedIn: true,
-    accessType: "offline",
-    // responseType: 'code',
-    // prompt: 'consent',
+    accessType: "online",
+    scope,
+    // responseType: "code",
+    // prompt: "consent",
   });
 
   const onLogoutSuccess = (res) => {
@@ -50,7 +56,28 @@ const UserProvider = (props) => {
     onLogoutFailure,
   });
 
-  const userContextValue = { user, signIn, signOut };
+  useEffect(() => {
+    const fetchEmails = async () => {
+      //   console.log("TOKEN", token);
+      const emails = await fetch(
+        `https://gmail.googleapis.com/gmail/v1/users/${user?.googleId}/messages?key=${process.env.NEXT_PUBLIC_API_KEY}
+        `,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      ).then((res) => res.json());
+      setEmailList(emails);
+    };
+
+    if (token) {
+      fetchEmails();
+    }
+  }, [token]);
+
+  const userContextValue = { user, signIn, signOut, emailList, token };
 
   return <UserContext.Provider value={userContextValue} {...props} />;
 };
