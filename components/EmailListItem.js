@@ -1,7 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { UserContext, useUser } from "../context/userContext";
-import { InboxIcon, StarIcon, ArchiveIcon } from "@heroicons/react/solid";
-import { BookmarkIcon } from "@heroicons/react/solid";
+import {
+  InboxIcon,
+  StarIcon,
+  ArchiveIcon,
+  BookmarkIcon,
+} from "@heroicons/react/outline";
 
 function EmailListItem({ id }) {
   const { token, user } = useContext(UserContext);
@@ -31,8 +35,8 @@ function EmailListItem({ id }) {
     <div className="flex w-full h-10 pl-4 items-center border-b border-gray-700 text-gray-400">
       <div className="flex items-center space-x-4">
         <p>▢</p>
-        <StarIcon className="h-6" />
-        <BookmarkIcon className="h-6" />
+        <StarIcon className="h-5" />
+        <BookmarkIcon className="h-5" />
       </div>
       <div className="ml-24 flex w-[60rem]">
         <p className="truncate">{email?.snippet}</p>
