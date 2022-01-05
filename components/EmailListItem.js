@@ -31,33 +31,35 @@ function EmailListItem({ id }) {
     if (token) {
       fetchEmails();
     }
+  }, []);
 
+  useEffect(() => {
     email?.payload.headers.forEach((header) => {
       {
         header.name === "From" && setFrom(header.value);
       }
       if (header.name === "From") {
-        setFrom(header.value);
+        setFrom(header?.value);
       }
       if (header.name === "Subject") {
-        setSubject(header.value);
+        setSubject(header?.value);
       }
     });
-  }, []);
+  });
 
   console.log("EMAIL", email);
 
   return (
-    <div className="flex flex-cols-2 w-full h-10 pl-4 items-center border-b border-gray-700 text-gray-400 text-sm">
+    <div className="flex flex-cols-2 w-full h-10 pl-4 items-center border-b border-gray-700 text-gray-00 text-sm">
       <div className="flex items-center space-x-4">
         <p>▢</p>
         <StarIcon className="h-5" />
         <BookmarkIcon className="h-5" />
-        <p className="text-white font-semibold truncate w-44">{from}</p>
+        <p className="font-semibold truncate w-44">{from}</p>
       </div>
       <div className="ml-24 flex w-[60rem]">
-        <p className="text-white font-semibold truncate">{subject}</p>
-        <p className="truncate">{email?.snippet}</p>
+        <p className="font-semibold truncate">{subject}</p>
+        <p className=" text-black-extraLight truncate">{email?.snippet}</p>
       </div>
       <p className="ml-10 ">7/11/21</p>
     </div>
