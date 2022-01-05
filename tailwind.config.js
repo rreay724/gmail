@@ -12,6 +12,7 @@ module.exports = {
           medium: "#212121",
           light: "#3D3D3D",
           default: "#181818",
+          fontLight: "#b3b3b3",
         },
       },
     },

@@ -50,18 +50,18 @@ function EmailListItem({ id }) {
   console.log("EMAIL", email);
 
   return (
-    <div className="flex flex-cols-2 w-full h-10 pl-4 items-center border-b border-gray-700 text-gray-00 text-sm">
+    <div className="flex flex-cols-2 w-full h-10 pl-4 items-center border-b border-gray-700 text-sm cursor-pointer hover:border hover:border-gray-600 hover:shadow-lg">
       <div className="flex items-center space-x-4">
         <p>▢</p>
         <StarIcon className="h-5" />
         <BookmarkIcon className="h-5" />
-        <p className="font-semibold truncate w-44">{from}</p>
+        <p className="truncate w-44 text-black-fontLight ">{from}</p>
       </div>
       <div className="ml-24 flex w-[60rem]">
-        <p className="font-semibold truncate">{subject}</p>
+        <p className="truncate text-black-fontLight ">{subject}</p>
         <p className=" text-black-extraLight truncate">{email?.snippet}</p>
       </div>
-      <p className="ml-10 ">7/11/21</p>
+      <p className="ml-10 text-black-extraLight">7/11/21</p>
     </div>
   );
 }
