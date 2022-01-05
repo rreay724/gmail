@@ -6,12 +6,17 @@ import {
   ArchiveIcon,
   BookmarkIcon,
 } from "@heroicons/react/outline";
+import Moment from "moment";
 
 function EmailListItem({ id }) {
   const { token, user } = useContext(UserContext);
   const [email, setEmail] = useState();
-  const [from, setFrom] = useState();
+  const [date, setDate] = useState();
+  const [from, setFrom] = useState("<test>");
   const [subject, setSubject] = useState();
+  const [trimmedFrom, setTrimmedFrom] = useState();
+  const [formattedDate, setFormattedDate] = useState();
+
   useEffect(() => {
     const fetchEmails = async () => {
       //   console.log("TOKEN", token);
@@ -44,8 +49,22 @@ function EmailListItem({ id }) {
       if (header.name === "Subject") {
         setSubject(header?.value);
       }
+
+      if (header.name === "Date") {
+        setDate(header?.value);
+      }
+
+      setFormattedDate(Moment(date).format("MM/DD/YYYY"));
     });
   });
+
+  useEffect(() => {
+    if (from.charAt(0) === "<") {
+      setTrimmedFrom(from);
+    } else {
+      setTrimmedFrom(from.split("<")[0]);
+    }
+  }, [from]);
 
   console.log("EMAIL", email);
 
@@ -55,13 +74,13 @@ function EmailListItem({ id }) {
         <p>▢</p>
         <StarIcon className="h-5" />
         <BookmarkIcon className="h-5" />
-        <p className="truncate w-44 text-black-fontLight ">{from}</p>
+        <p className="truncate w-48 text-black-fontLight ">{trimmedFrom}</p>
       </div>
-      <div className="ml-24 flex w-[60rem]">
+      <div className="ml-24 flex w-[55rem]">
         <p className="truncate text-black-fontLight ">{subject}</p>
         <p className=" text-black-extraLight truncate">{email?.snippet}</p>
       </div>
-      <p className="ml-10 text-black-extraLight">7/11/21</p>
+      <p className="ml-10 text-black-extraLight mr-5">{formattedDate}</p>
     </div>
   );
 }
